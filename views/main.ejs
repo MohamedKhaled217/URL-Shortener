@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener</title>
+    <link rel="stylesheet" href="/main.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>URL Shortener</h1>
+
+        <!-- Form -->
+        <form class="shorten-form" action="/" method="post">
+            <label for="long-url">Long URL</label>
+            <input type="url" id="long-url" name="longurl" placeholder="Enter the long URL" required>
+
+            <label for="alias">Alias</label>
+            <input type="text" id="alias" name="alias" placeholder="Enter custom alias">
+
+            <button type="submit">Shorten URL</button>
+        </form>
+
+        <!-- Table -->
+        <h2>Previously Shortened URLs</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Alias</th>
+                    <th>Original URL</th>
+                    <th>Short URL</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (prevUrls.length===0){ %>
+                    <tr>
+                        <td>No Data</td>
+                        <td>No Data</td>
+                        <td>No Data</td>
+                    </tr>
+                    <%} else {%>
+                        <% prevUrls.forEach(url=> { %>
+                            <tr>
+                                <td>
+                                    <%= url.alias%>
+                                </td>
+                                <td><a href="<%= url.longurl%>">
+                                        <%= url.longurl%>
+                                    </a></td>
+                                <td><a href="<%= url.longurl%>">
+                                        <%= url.shorturl%>
+                                    </a></td>
+                                <td>
+                                    <form action="/delete/<%= url._id%>?_method=DELETE" method="post"  style="
+                                        display:inline;">
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <%})%>
+                                <%}%>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 URL Shortener | Built by Mohamed Khaled</p>
+    </footer>
+
+</body>
+
+</html>
